@@ -22,9 +22,9 @@
   .switch {
     --font-size: 10px;
     
-    --height: 10em;
-    --width: 24em;
-    --margin: 0.5em;
+    --height: 5em;
+    --width: 12em;
+    --margin: 0.1em;
     
     --color-night: rgba(15, 64, 91, 1);
     --color-day: rgba(91, 169, 211, 1);
