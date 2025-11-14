@@ -1,4 +1,5 @@
-<!-- Add this CSS to your stylesheet or in <style> tags -->
+
+<!-- Add this CSS to your stylesheet -->
 <style>
   /* Toggle Switch - Position in top right */
   .theme-toggle-wrapper {
@@ -8,154 +9,242 @@
     z-index: 1000;
   }
 
-  .toggle-checkbox {
-    display: none;
-  }
-
-  .toggle-switch {
-    position: relative;
-    width: 80px;
-    height: 40px;
-    background: linear-gradient(180deg, #4FC3F7 0%, #03A9F4 100%);
-    border-radius: 50px;
+  button {
+    outline: 0;
+    background: transparent;
+    border-radius: 0;
+    border: 0;
+    appearance: none;
+    box-shadow: none;
     cursor: pointer;
-    transition: background 0.3s ease;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .switch {
+    --font-size: 10px;
+    
+    --height: 10em;
+    --width: 24em;
+    --margin: 0.5em;
+    
+    --color-night: rgba(15, 64, 91, 1);
+    --color-day: rgba(91, 169, 211, 1);
+    --color-sun: rgba(246, 211, 90, 1);
+    
+    --ease: cubic-bezier(0.770, 0.000, 0.175, 1.000);
+    --duration: .85s;
+    
+    font-size: var(--font-size);
+    position: relative;
+    width: var(--width);
+    height: var(--height);
+    border-radius: 999px;
+    background-color: var(--color-day);
     overflow: hidden;
+    z-index: 2;
   }
 
-  .toggle-checkbox:checked + .toggle-switch {
-    background: linear-gradient(180deg, #1a237e 0%, #303f9f 100%);
-  }
-
-  .toggle-slider {
+  .switch:after {
+    content: '';
     position: absolute;
-    top: 4px;
-    left: 4px;
-    width: 32px;
-    height: 32px;
-    background: white;
-    border-radius: 50%;
-    transition: transform 0.3s ease;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-night);
+    transition: opacity var(--duration) var(--ease);
+    opacity: 0;
+    z-index: 1;
+  }
+
+  .switch.is-active:after {
+    opacity: 1;
+  }
+
+  .switch__inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     overflow: hidden;
+    transform-origin: right;
+    transform: translate3d(calc(var(--width) - var(--height)), 0, 0);
+    transition: transform var(--duration) var(--ease);
+    z-index: 2;
   }
 
-  .toggle-checkbox:checked + .toggle-switch .toggle-slider {
-    transform: translateX(40px);
+  .is-active .switch__inner {
+    transform: translate3d(0, 0, 0);
   }
 
-  .sun-icon {
+  .switch-globe {
+    --size: calc(var(--height) - (var(--margin) * 2));
+    
+    position: relative;
+    height: var(--size);
+    width: var(--size);
+    margin: var(--margin) 0 0 var(--margin);
+    border-radius: 999px;
+    background-color: var(--color-sun);
+    transform: rotate(90deg);
+    transition: transform var(--duration) var(--ease);
+    z-index: 1;
+  }
+
+  .is-active .switch-globe {
+    transform: rotate(0);
+  }
+
+  .switch-globe__circle {
     position: absolute;
-    width: 20px;
-    height: 20px;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-  }
-
-  .sun-icon::before {
-    content: '';
-    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
     width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, #FDD835 40%, #FBC02D 100%);
-    border-radius: 50%;
+    border-radius: 999px;
+    background-color: var(--color-day);
+    transform: translate3d(50%, 0, 0);
+    transition: 
+      transform var(--duration) var(--ease), 
+      background-color var(--duration) var(--ease);
   }
 
-  .sun-icon::after {
-    content: '';
+  .is-active .switch-globe__circle {
+    background-color: var(--color-night);
+    transform: translate3d(-10%, 0, 0);
+  }
+
+  .switch-globe__moon {
     position: absolute;
-    width: 100%;
+    top: 0;
+    left: 0;
     height: 100%;
-    background: 
-      linear-gradient(0deg, transparent 45%, #FDD835 45%, #FDD835 55%, transparent 55%),
-      linear-gradient(90deg, transparent 45%, #FDD835 45%, #FDD835 55%, transparent 55%),
-      linear-gradient(45deg, transparent 45%, #FDD835 45%, #FDD835 55%, transparent 55%),
-      linear-gradient(-45deg, transparent 45%, #FDD835 45%, #FDD835 55%, transparent 55%);
-    transform: scale(1.5);
-    animation: rotate 20s linear infinite;
-  }
-
-  @keyframes rotate {
-    to { transform: scale(1.5) rotate(360deg); }
-  }
-
-  .toggle-checkbox:checked + .toggle-switch .sun-icon {
+    width: 100%;
+    border-radius: 999px;
+    object-fit: cover;
+    transform: scaleX(-1);
     opacity: 0;
-    transform: scale(0);
+    transition: opacity var(--duration) var(--ease);
   }
 
-  .moon-icon {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    opacity: 0;
-    transform: scale(0);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-  }
-
-  .moon-icon::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: #f5f5f5;
-    border-radius: 50%;
-    box-shadow: inset -4px -2px 0 0 #e0e0e0;
-  }
-
-  .toggle-checkbox:checked + .toggle-switch .moon-icon {
+  .is-active .switch-globe__moon {
     opacity: 1;
-    transform: scale(1);
   }
 
-  .toggle-switch::before {
+  .switch__stars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    transform-origin: right;
+    transform: scale(.25);
+    transition: transform var(--duration) var(--ease);
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .switch__stars::before {
     content: '';
     position: absolute;
-    width: 3px;
-    height: 3px;
+    width: 0.3rem;
+    height: 0.3rem;
     background: white;
     border-radius: 50%;
-    top: 10px;
-    right: 50px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    top: 2rem;
+    right: 3rem;
     box-shadow: 
-      -8px 8px 0 white,
-      -5px -5px 0 white,
-      -12px 15px 0 white;
+      1rem 1.5rem 0 0.1rem white,
+      -0.5rem 1rem 0 0.05rem white,
+      2rem 3rem 0 0.15rem white,
+      -1rem 2.5rem 0 0.08rem white,
+      1.5rem 0.5rem 0 0.12rem white,
+      2.5rem 2rem 0 0.1rem white;
   }
 
-  .toggle-checkbox:checked + .toggle-switch::before {
-    opacity: 0.8;
+  .is-active .switch__stars {
+    transform: scale(0.9);
   }
 
-  .toggle-switch::after {
+  .switch__cloud {
+    position: absolute;
+    transition: transform var(--duration) var(--ease);
+    bottom: 1rem;
+  }
+
+  .switch__cloud.--1 {
+    left: 0.5rem;
+    width: 4rem;
+    height: 1.5rem;
+    background: white;
+    border-radius: 50px;
+    opacity: 0.9;
+  }
+
+  .switch__cloud.--1::before {
     content: '';
     position: absolute;
-    width: 15px;
-    height: 6px;
+    width: 2rem;
+    height: 2rem;
     background: white;
-    border-radius: 10px;
-    top: 12px;
-    left: 50px;
-    opacity: 1;
-    transition: opacity 0.3s ease;
-    box-shadow: 
-      -5px 0 0 3px white,
-      5px 0 0 3px white,
-      -20px 10px 0 2px white,
-      -25px 10px 0 4px white;
+    border-radius: 50%;
+    top: -0.8rem;
+    left: 0.5rem;
   }
 
-  .toggle-checkbox:checked + .toggle-switch::after {
-    opacity: 0;
+  .switch__cloud.--1::after {
+    content: '';
+    position: absolute;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: white;
+    border-radius: 50%;
+    top: -0.5rem;
+    right: 0.5rem;
   }
 
-  .toggle-switch:hover {
-    transform: scale(1.05);
+  .is-active .switch__cloud.--1 {
+    transform: translate3d(-3rem, 1rem, 0);
+  }
+
+  .switch__cloud.--2 {
+    left: 4rem;
+    width: 3rem;
+    height: 1.2rem;
+    background: white;
+    border-radius: 50px;
+    opacity: 0.85;
+  }
+
+  .switch__cloud.--2::before {
+    content: '';
+    position: absolute;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: white;
+    border-radius: 50%;
+    top: -0.6rem;
+    left: 0.5rem;
+  }
+
+  .switch__cloud.--2::after {
+    content: '';
+    position: absolute;
+    width: 1.2rem;
+    height: 1.2rem;
+    background: white;
+    border-radius: 50%;
+    top: -0.4rem;
+    right: 0.5rem;
+  }
+
+  .is-active .switch__cloud.--2 {
+    transform: translate3d(-1rem, 3rem, 0);
+  }
+
+  .shadow {
+    box-shadow: 2px 4px 12px -2px rgba(0, 0, 0, 0.25);
+    border-radius: 999px;
   }
 
   /* Theme styles for your body */
@@ -174,17 +263,21 @@
   }
 </style>
 
-<!-- Add this HTML where you want the toggle (or keep wrapper in top right) -->
+<!-- Add this HTML in your body -->
 <div class="theme-toggle-wrapper">
-  <label>
-    <input type="checkbox" class="toggle-checkbox" id="themeToggle">
-    <div class="toggle-switch">
-      <div class="toggle-slider">
-        <div class="sun-icon"></div>
-        <div class="moon-icon"></div>
+  <span class="shadow">
+    <button type="button" class="switch" id="themeToggle">
+      <div class="switch__cloud --2"></div>
+      <div class="switch__cloud --1"></div>
+      <div class="switch__inner">
+        <div class="switch-globe">
+          <img class="switch-globe__moon" src="https://assets.codepen.io/58281/moon_1.png" />
+          <div class="switch-globe__circle"></div>
+        </div>
+        <div class="switch__stars"></div>
       </div>
-    </div>
-  </label>
+    </button>
+  </span>
 </div>
 
 <!-- Add this JavaScript before closing </body> tag -->
@@ -197,12 +290,14 @@
   body.classList.add(currentTheme);
   
   if (currentTheme === 'dark-mode') {
-    toggle.checked = true;
+    toggle.classList.add('is-active');
   }
 
   // Toggle theme
-  toggle.addEventListener('change', () => {
-    if (toggle.checked) {
+  toggle.addEventListener('click', () => {
+    toggle.classList.toggle('is-active');
+    
+    if (toggle.classList.contains('is-active')) {
       body.classList.remove('light-mode');
       body.classList.add('dark-mode');
       localStorage.setItem('theme', 'dark-mode');
