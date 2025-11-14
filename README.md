@@ -184,8 +184,8 @@
   .switch__cloud.--1::before {
     content: '';
     position: absolute;
-    width: 2rem;
-    height: 2rem;
+    width: 1rem;
+    height: 1rem;
     background: white;
     border-radius: 50%;
     top: -0.8rem;
@@ -195,8 +195,8 @@
   .switch__cloud.--1::after {
     content: '';
     position: absolute;
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 0.5rem;
+    height: 0.5rem;
     background: white;
     border-radius: 50%;
     top: -0.5rem;
