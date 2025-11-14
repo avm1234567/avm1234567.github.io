@@ -174,8 +174,8 @@
 
   .switch__cloud.--1 {
     left: 0.5rem;
-    width: 4rem;
-    height: 1.5rem;
+    width: 1rem;
+    height: 0.375rem;
     background: white;
     border-radius: 50px;
     opacity: 0.9;
@@ -209,8 +209,8 @@
 
   .switch__cloud.--2 {
     left: 4rem;
-    width: 3rem;
-    height: 1.2rem;
+    width: 1rem;
+    height: 0.4rem;
     background: white;
     border-radius: 50px;
     opacity: 0.85;
@@ -219,8 +219,8 @@
   .switch__cloud.--2::before {
     content: '';
     position: absolute;
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 0.75rem;
+    height: 0.75rem;
     background: white;
     border-radius: 50%;
     top: -0.6rem;
@@ -230,8 +230,8 @@
   .switch__cloud.--2::after {
     content: '';
     position: absolute;
-    width: 1.2rem;
-    height: 1.2rem;
+    width: 0.25rem;
+    height: 0.25rem;
     background: white;
     border-radius: 50%;
     top: -0.4rem;
