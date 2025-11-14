@@ -1,133 +1,215 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cloud Switch Button</title>
-  <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background: linear-gradient(to top right, #89f7fe, #66a6ff);
-      margin: 0;
-      font-family: sans-serif;
-    }
-    .shadow {
-      filter: drop-shadow(0 5px 8px rgba(0, 0, 0, 0.3));
-    }
-    .switch {
-      position: relative;
-      width: 140px;
-      height: 70px;
-      border: none;
-      outline: none;
-      background: linear-gradient(to bottom, #b4e1ff, #ffffff);
-      border-radius: 50px;
-      cursor: pointer;
-      overflow: hidden;
-      transition: background 0.6s ease;
-    }
-    .switch__inner {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: all 0.6s ease;
-    }
-    .switch__cloud {
-      position: absolute;
-      width: 60px;
-      opacity: 0.9;
-      transition: transform 0.8s ease, opacity 0.6s ease;
-    }
-    .switch__cloud.--1 {
-      top: 10px;
-      left: 15px;
-    }
-    .switch__cloud.--2 {
-      bottom: 10px;
-      right: 15px;
-    }
-    .switch-globe {
-      position: relative;
-      width: 40px;
-      height: 40px;
-      background: #f5f5f5;
-      border-radius: 50%;
-      box-shadow: inset -5px -5px 15px rgba(0, 0, 0, 0.1);
-      transition: all 0.6s ease;
-    }
-    .switch-globe__circle {
-      position: absolute;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: #ffd97d;
-      transition: all 0.6s ease;
-    }
-    .switch-globe__moon {
-      position: absolute;
-      width: 30px;
-      top: 5px;
-      left: 5px;
-      opacity: 0;
-      transition: opacity 0.6s ease;
-    }
-    .switch__stars {
-      position: absolute;
-      width: 100%;
-      opacity: 0;
-      transition: opacity 0.6s ease;
-    }
-    /* --- Active (Night) Mode --- */
-    .switch.active {
-      background: linear-gradient(to top, #202020, #3b3b98);
-    }
-    .switch.active .switch__cloud {
-      opacity: 0;
-      transform: translateY(-15px);
-    }
-    .switch.active .switch-globe__circle {
-      background: #555;
-    }
-    .switch.active .switch-globe__moon {
-      opacity: 1;
-    }
-    .switch.active .switch__stars {
-      opacity: 1;
-    }
-  </style>
-</head>
-<body>
+<!-- Add this CSS to your stylesheet or in <style> tags -->
+<style>
+  /* Toggle Switch - Position in top right */
+  .theme-toggle-wrapper {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+  }
 
-  <span class="shadow">
-    <button type="button" class="switch" id="themeSwitch">
-      <img class="switch__cloud --2" src="https://assets.codepen.io/58281/cloud-1.svg" />
-      <img class="switch__cloud --1" src="https://assets.codepen.io/58281/cloud-2.svg" />
-      <div class="switch__inner">
-        <div class="switch-globe">
-          <img class="switch-globe__moon" src="https://assets.codepen.io/58281/moon_1.png" />
-          <div class="switch-globe__circle"></div>
-        </div>
-        <img class="switch__stars" src="https://assets.codepen.io/58281/stars.svg" />
+  .toggle-checkbox {
+    display: none;
+  }
+
+  .toggle-switch {
+    position: relative;
+    width: 80px;
+    height: 40px;
+    background: linear-gradient(180deg, #4FC3F7 0%, #03A9F4 100%);
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+  }
+
+  .toggle-checkbox:checked + .toggle-switch {
+    background: linear-gradient(180deg, #1a237e 0%, #303f9f 100%);
+  }
+
+  .toggle-slider {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 32px;
+    height: 32px;
+    background: white;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .toggle-checkbox:checked + .toggle-switch .toggle-slider {
+    transform: translateX(40px);
+  }
+
+  .sun-icon {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .sun-icon::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, #FDD835 40%, #FBC02D 100%);
+    border-radius: 50%;
+  }
+
+  .sun-icon::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: 
+      linear-gradient(0deg, transparent 45%, #FDD835 45%, #FDD835 55%, transparent 55%),
+      linear-gradient(90deg, transparent 45%, #FDD835 45%, #FDD835 55%, transparent 55%),
+      linear-gradient(45deg, transparent 45%, #FDD835 45%, #FDD835 55%, transparent 55%),
+      linear-gradient(-45deg, transparent 45%, #FDD835 45%, #FDD835 55%, transparent 55%);
+    transform: scale(1.5);
+    animation: rotate 20s linear infinite;
+  }
+
+  @keyframes rotate {
+    to { transform: scale(1.5) rotate(360deg); }
+  }
+
+  .toggle-checkbox:checked + .toggle-switch .sun-icon {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  .moon-icon {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    opacity: 0;
+    transform: scale(0);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .moon-icon::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #f5f5f5;
+    border-radius: 50%;
+    box-shadow: inset -4px -2px 0 0 #e0e0e0;
+  }
+
+  .toggle-checkbox:checked + .toggle-switch .moon-icon {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .toggle-switch::before {
+    content: '';
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: white;
+    border-radius: 50%;
+    top: 10px;
+    right: 50px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    box-shadow: 
+      -8px 8px 0 white,
+      -5px -5px 0 white,
+      -12px 15px 0 white;
+  }
+
+  .toggle-checkbox:checked + .toggle-switch::before {
+    opacity: 0.8;
+  }
+
+  .toggle-switch::after {
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 6px;
+    background: white;
+    border-radius: 10px;
+    top: 12px;
+    left: 50px;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    box-shadow: 
+      -5px 0 0 3px white,
+      5px 0 0 3px white,
+      -20px 10px 0 2px white,
+      -25px 10px 0 4px white;
+  }
+
+  .toggle-checkbox:checked + .toggle-switch::after {
+    opacity: 0;
+  }
+
+  .toggle-switch:hover {
+    transform: scale(1.05);
+  }
+
+  /* Theme styles for your body */
+  body {
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  body.light-mode {
+    background-color: #ffffff;
+    color: #333333;
+  }
+
+  body.dark-mode {
+    background-color: #1a1a2e;
+    color: #f0f0f0;
+  }
+</style>
+
+<!-- Add this HTML where you want the toggle (or keep wrapper in top right) -->
+<div class="theme-toggle-wrapper">
+  <label>
+    <input type="checkbox" class="toggle-checkbox" id="themeToggle">
+    <div class="toggle-switch">
+      <div class="toggle-slider">
+        <div class="sun-icon"></div>
+        <div class="moon-icon"></div>
       </div>
-    </button>
-  </span>
+    </div>
+  </label>
+</div>
 
-  <script>
-    const switchBtn = document.getElementById('themeSwitch');
-    switchBtn.addEventListener('click', () => {
-      switchBtn.classList.toggle('active');
-      document.body.style.background = switchBtn.classList.contains('active')
-        ? 'linear-gradient(to top, #0f2027, #203a43, #2c5364)'
-        : 'linear-gradient(to top right, #89f7fe, #66a6ff)';
-    });
-  </script>
+<!-- Add this JavaScript before closing </body> tag -->
+<script>
+  const toggle = document.getElementById('themeToggle');
+  const body = document.body;
 
-</body>
-</html>
+  // Load saved theme
+  const currentTheme = localStorage.getItem('theme') || 'light-mode';
+  body.classList.add(currentTheme);
+  
+  if (currentTheme === 'dark-mode') {
+    toggle.checked = true;
+  }
 
+  // Toggle theme
+  toggle.addEventListener('change', () => {
+    if (toggle.checked) {
+      body.classList.remove('light-mode');
+      body.classList.add('dark-mode');
+      localStorage.setItem('theme', 'dark-mode');
+    } else {
+      body.classList.remove('dark-mode');
+      body.classList.add('light-mode');
+      localStorage.setItem('theme', 'light-mode');
+    }
+  });
+</script>
