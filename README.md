@@ -1,310 +1,260 @@
-
-<!-- Add this CSS to your stylesheet -->
-<style>
-  /* Toggle Switch - Position in top right */
-  .theme-toggle-wrapper {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1000;
-  }
-
-  button {
-    outline: 0;
-    background: transparent;
-    border-radius: 0;
-    border: 0;
-    appearance: none;
-    box-shadow: none;
-    cursor: pointer;
-  }
-
-  .switch {
-    --font-size: 10px;
-    
-    --height: 3em;
-    --width: 7.2em;
-    --margin: 0em;
-    
-    --color-night: rgba(15, 64, 91, 1);
-    --color-day: rgba(91, 169, 211, 1);
-    --color-sun: rgba(246, 211, 90, 1);
-    
-    --ease: cubic-bezier(0.770, 0.000, 0.175, 1.000);
-    --duration: .85s;
-    
-    font-size: var(--font-size);
-    position: relative;
-    width: var(--width);
-    height: var(--height);
-    border-radius: 999px;
-    background-color: var(--color-day);
-    overflow: hidden;
-    z-index: 2;
-  }
-
-  .switch:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: var(--color-night);
-    transition: opacity var(--duration) var(--ease);
-    opacity: 0;
-    z-index: 1;
-  }
-
-  .switch.is-active:after {
-    opacity: 1;
-  }
-
-  .switch__inner {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    transform-origin: right;
-    transform: translate3d(calc(var(--width) - var(--height)), 0, 0);
-    transition: transform var(--duration) var(--ease);
-    z-index: 2;
-  }
-
-  .is-active .switch__inner {
-    transform: translate3d(0, 0, 0);
-  }
-
-  .switch-globe {
-    --size: calc(var(--height) - (var(--margin) * 2));
-    
-    position: relative;
-    height: var(--size);
-    width: var(--size);
-    margin: var(--margin) 0 0 var(--margin);
-    border-radius: 999px;
-    background-color: var(--color-sun);
-    transform: rotate(90deg);
-    transition: transform var(--duration) var(--ease);
-    z-index: 1;
-  }
-
-  .is-active .switch-globe {
-    transform: rotate(0);
-  }
-
-  .switch-globe__circle {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    width: 100%;
-    border-radius: 999px;
-    background-color: var(--color-day);
-    transform: translate3d(50%, 0, 0);
-    transition: 
-      transform var(--duration) var(--ease), 
-      background-color var(--duration) var(--ease);
-  }
-
-  .is-active .switch-globe__circle {
-    background-color: var(--color-night);
-    transform: translate3d(-10%, 0, 0);
-  }
-
-  .switch-globe__moon {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    border-radius: 999px;
-    object-fit: cover;
-    transform: scaleX(-1);
-    opacity: 0;
-    transition: opacity var(--duration) var(--ease);
-  }
-
-  .is-active .switch-globe__moon {
-    opacity: 1;
-  }
-
-  .switch__stars {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    transform-origin: right;
-    transform: scale(.25);
-    transition: transform var(--duration) var(--ease);
-    z-index: 2;
-    pointer-events: none;
-  }
-
-  .switch__stars::before {
-    content: '';
-    position: absolute;
-    width: 0.3rem;
-    height: 0.3rem;
-    background: white;
-    border-radius: 50%;
-    top: 2rem;
-    right: 3rem;
-    box-shadow: 
-      1rem 1.5rem 0 0.1rem white,
-      -0.5rem 1rem 0 0.05rem white,
-      2rem 3rem 0 0.15rem white,
-      -1rem 2.5rem 0 0.08rem white,
-      1.5rem 0.5rem 0 0.12rem white,
-      2.5rem 2rem 0 0.1rem white;
-  }
-
-  .is-active .switch__stars {
-    transform: scale(0.9);
-  }
-
-  .switch__cloud {
-    position: absolute;
-    transition: transform var(--duration) var(--ease);
-    bottom: 1rem;
-  }
-
-  .switch__cloud.--1 {
-    left: 0.5rem;
-    width: 1rem;
-    height: 0.375rem;
-    background: white;
-    border-radius: 50px;
-    opacity: 0.9;
-  }
-
-  .switch__cloud.--1::before {
-    content: '';
-    position: absolute;
-    width: 1rem;
-    height: 1rem;
-    background: white;
-    border-radius: 50%;
-    top: -0.8rem;
-    left: 0.5rem;
-  }
-
-  .switch__cloud.--1::after {
-    content: '';
-    position: absolute;
-    width: 0.5rem;
-    height: 0.5rem;
-    background: white;
-    border-radius: 50%;
-    top: -0.5rem;
-    right: 0.5rem;
-  }
-
-  .is-active .switch__cloud.--1 {
-    transform: translate3d(-3rem, 1rem, 0);
-  }
-
-  .switch__cloud.--2 {
-    left: 4rem;
-    width: 1rem;
-    height: 0.4rem;
-    background: white;
-    border-radius: 50px;
-    opacity: 0.85;
-  }
-
-  .switch__cloud.--2::before {
-    content: '';
-    position: absolute;
-    width: 0.75rem;
-    height: 0.75rem;
-    background: white;
-    border-radius: 50%;
-    top: -0.6rem;
-    left: 0.5rem;
-  }
-
-  .switch__cloud.--2::after {
-    content: '';
-    position: absolute;
-    width: 0.25rem;
-    height: 0.25rem;
-    background: white;
-    border-radius: 50%;
-    top: -0.4rem;
-    right: 0.5rem;
-  }
-
-  .is-active .switch__cloud.--2 {
-    transform: translate3d(-1rem, 3rem, 0);
-  }
-
-  .shadow {
-    box-shadow: 2px 4px 12px -2px rgba(0, 0, 0, 0.25);
-    border-radius: 999px;
-  }
-
-  /* Theme styles for your body */
-  body {
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-
-  body.light-mode {
-    background-color: #ffffff;
-    color: #333333;
-  }
-
-  body.dark-mode {
-    background-color: #1a1a2e;
-    color: #f0f0f0;
-  }
-</style>
-
-<!-- Add this HTML in your body -->
-<div class="theme-toggle-wrapper">
-  <span class="shadow">
-    <button type="button" class="switch" id="themeToggle">
-      <div class="switch__cloud --2"></div>
-      <div class="switch__cloud --1"></div>
-      <div class="switch__inner">
-        <div class="switch-globe">
-          <img class="switch-globe__moon" src="https://assets.codepen.io/58281/moon_1.png" />
-          <div class="switch-globe__circle"></div>
-        </div>
-        <div class="switch__stars"></div>
-      </div>
-    </button>
-  </span>
-</div>
-
-<!-- Add this JavaScript before closing </body> tag -->
-<script>
-  const toggle = document.getElementById('themeToggle');
-  const body = document.body;
-
-  // Load saved theme
-  const currentTheme = localStorage.getItem('theme') || 'light-mode';
-  body.classList.add(currentTheme);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Portfolio - Simple Version</title>
   
-  if (currentTheme === 'dark-mode') {
-    toggle.classList.add('is-active');
-  }
-
-  // Toggle theme
-  toggle.addEventListener('click', () => {
-    toggle.classList.toggle('is-active');
-    
-    if (toggle.classList.contains('is-active')) {
-      body.classList.remove('light-mode');
-      body.classList.add('dark-mode');
-      localStorage.setItem('theme', 'dark-mode');
-    } else {
-      body.classList.remove('dark-mode');
-      body.classList.add('light-mode');
-      localStorage.setItem('theme', 'light-mode');
+  <style>
+    /* ============================================
+       BASIC RESET - Makes all browsers behave the same
+       ============================================ */
+    * {
+      margin: 0;           /* Removes default spacing */
+      padding: 0;          /* Removes default padding */
+      box-sizing: border-box;  /* Makes width/height calculations easier */
     }
-  });
-</script>
+
+    /* ============================================
+       BODY STYLING - The whole page background
+       ============================================ */
+    body {
+      font-family: Arial, sans-serif;  /* Font for the entire site */
+      line-height: 1.6;                /* Space between lines of text */
+      background-color: #f4f4f4;       /* Light gray background */
+      color: #333;                      /* Dark text color */
+    }
+
+    /* ============================================
+       CONTAINER - Centers content and adds spacing
+       ============================================ */
+    .container {
+      max-width: 1100px;    /* Don't let content get too wide */
+      margin: 0 auto;       /* Centers the container */
+      padding: 20px;        /* Space around content */
+    }
+
+    /* ============================================
+       HEADER SECTION - Top of the page
+       ============================================ */
+    header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);  /* Purple gradient */
+      color: white;              /* White text */
+      text-align: center;        /* Center the text */
+      padding: 100px 20px;       /* Space inside header (top/bottom, left/right) */
+    }
+
+    header h1 {
+      font-size: 3rem;           /* Large heading size (3 times normal) */
+      margin-bottom: 10px;       /* Space below heading */
+    }
+
+    header p {
+      font-size: 1.2rem;         /* Slightly larger paragraph */
+      margin-bottom: 20px;       /* Space below paragraph */
+    }
+
+    /* ============================================
+       BUTTONS - Call to action buttons
+       ============================================ */
+    .btn {
+      display: inline-block;     /* Makes link behave like a button */
+      padding: 12px 30px;        /* Space inside button */
+      background-color: white;   /* White background */
+      color: #667eea;            /* Purple text */
+      text-decoration: none;     /* Removes underline from links */
+      border-radius: 25px;       /* Rounded corners */
+      margin: 5px;               /* Space around button */
+      font-weight: bold;         /* Bold text */
+      transition: all 0.3s;      /* Smooth animation for changes */
+    }
+
+    .btn:hover {
+      background-color: #764ba2; /* Darker purple on hover */
+      color: white;              /* White text on hover */
+      transform: translateY(-3px); /* Moves button up slightly */
+    }
+
+    /* ============================================
+       SECTIONS - Main content areas
+       ============================================ */
+    section {
+      padding: 60px 20px;        /* Space inside each section */
+      background-color: white;   /* White background */
+      margin: 20px 0;            /* Space between sections */
+    }
+
+    /* Every other section gets a gray background */
+    section:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    section h2 {
+      font-size: 2.5rem;         /* Large section heading */
+      text-align: center;        /* Center the heading */
+      margin-bottom: 40px;       /* Space below heading */
+      color: #667eea;            /* Purple color */
+    }
+
+    /* ============================================
+       ABOUT SECTION
+       ============================================ */
+    .about-text {
+      max-width: 700px;          /* Don't let text get too wide */
+      margin: 0 auto;            /* Center the text */
+      font-size: 1.1rem;         /* Slightly larger text */
+      text-align: center;        /* Center align */
+    }
+
+    /* ============================================
+       SKILLS SECTION - Grid layout
+       ============================================ */
+    .skills-grid {
+      display: grid;                              /* Use CSS Grid layout */
+      grid-template-columns: repeat(3, 1fr);      /* 3 equal columns */
+      gap: 30px;                                  /* Space between grid items */
+      max-width: 900px;                           /* Maximum width */
+      margin: 0 auto;                             /* Center the grid */
+    }
+
+    .skill-box {
+      background-color: #f4f4f4;  /* Light background */
+      padding: 30px;              /* Space inside box */
+      border-radius: 10px;        /* Rounded corners */
+      text-align: center;         /* Center text */
+    }
+
+    .skill-box h3 {
+      color: #667eea;             /* Purple heading */
+      margin-bottom: 15px;        /* Space below heading */
+    }
+
+    .skill-box ul {
+      list-style: none;           /* Remove bullet points */
+    }
+
+    .skill-box li {
+      padding: 5px 0;             /* Space around each skill */
+    }
+
+    /* ============================================
+       PROJECTS SECTION - Card layout
+       ============================================ */
+    .projects-grid {
+      display: grid;                         /* Use CSS Grid */
+      grid-template-columns: repeat(2, 1fr); /* 2 columns */
+      gap: 30px;                             /* Space between cards */
+    }
+
+    .project-card {
+      background-color: white;      /* White background */
+      padding: 30px;                /* Space inside card */
+      border-radius: 10px;          /* Rounded corners */
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);  /* Subtle shadow */
+      transition: transform 0.3s;   /* Smooth animation */
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);  /* Lift card on hover */
+      box-shadow: 0 8px 12px rgba(0,0,0,0.2);  /* Bigger shadow on hover */
+    }
+
+    .project-card h3 {
+      color: #667eea;               /* Purple heading */
+      margin-bottom: 10px;          /* Space below heading */
+    }
+
+    .project-tags {
+      margin-top: 15px;             /* Space above tags */
+    }
+
+    .tag {
+      display: inline-block;        /* Display tags inline */
+      background-color: #e0e7ff;    /* Light purple background */
+      color: #667eea;               /* Purple text */
+      padding: 5px 15px;            /* Space inside tag */
+      border-radius: 15px;          /* Rounded tag */
+      font-size: 0.85rem;           /* Smaller text */
+      margin: 3px;                  /* Space around tags */
+    }
+
+    /* ============================================
+       CONTACT SECTION
+       ============================================ */
+    #contact {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      text-align: center;
+    }
+
+    #contact h2 {
+      color: white;
+    }
+
+    .contact-links {
+      margin-top: 30px;
+    }
+
+    .contact-links a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.2rem;
+      margin: 0 15px;
+      padding: 10px 20px;
+      border: 2px solid white;
+      border-radius: 25px;
+      display: inline-block;
+      transition: all 0.3s;
+    }
+
+    .contact-links a:hover {
+      background-color: white;
+      color: #667eea;
+    }
+
+    /* ============================================
+       FOOTER
+       ============================================ */
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    /* ============================================
+       RESPONSIVE DESIGN - Makes site work on phones
+       ============================================ */
+    @media (max-width: 768px) {
+      /* On small screens (phones): */
+      
+      header h1 {
+        font-size: 2rem;  /* Smaller heading */
+      }
+
+      .skills-grid {
+        grid-template-columns: 1fr;  /* Stack skills in 1 column */
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;  /* Stack projects in 1 column */
+      }
+
+      .contact-links a {
+        display: block;     /* Stack contact links */
+        margin: 10px auto;  /* Center them */
+        max-width: 200px;   /* Don't let them get too wide */
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+<h1>HI!, I am Archit More</h1>
+<p>Electrical Engineering Student | Embedded Systems & IoT Enthusiast</p>
+<a href="#projects" class="btn">My Projects</a>
+<a href="#contact" class="btn">Contact Me</a>
+</header>
+
