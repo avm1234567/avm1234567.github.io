@@ -178,6 +178,27 @@
       margin: 3px;                  /* Space around tags */
     }
 
+    .completed {
+        display: inline-block;        /* Display tags inline */
+      background-color: #e0e7ff;    /* Light purple background */
+      color: #06da4d;               /* Purple text */
+      padding: 5px 15px;            /* Space inside tag */
+      border-radius: 15px;          /* Rounded tag */
+      font-size: 0.85rem;           /* Smaller text */
+      margin: 3px;                  
+
+    }
+
+    .ongoing {
+              display: inline-block;        /* Display tags inline */
+      background-color: #e0e7ff;    /* Light purple background */
+      color: #dffc03;               /* Purple text */
+      padding: 5px 15px;            /* Space inside tag */
+      border-radius: 15px;          /* Rounded tag */
+      font-size: 0.85rem;           /* Smaller text */
+      margin: 3px;                  
+    }
+
     /* ============================================
        CONTACT SECTION
        ============================================ */
@@ -258,5 +279,66 @@
 <a href="#contact" class="btn">Contact Me</a>
 </header>
 
+  <section id="about">
+    <div class="container">
+      <h2>About Me</h2>
+      <div class="about-text">
+        <p>
+            I’m an Electrical Engineering student at VJTI, Mumbai, 
+            who enjoys building and experimenting with embedded systems and hardware projects. 
+            I work on real-world applications using microcontrollers and PCB design, 
+            and I’m continuously improving my technical and problem-solving skills.
+        </p>
+      </div>
+    </div>
+  </section>
 
+  <section id="projects">
+    <div class="container">
+        <h2>My Projects</h2>
+        <div class="projects-grid">
+        <div class="project-card">
+            <h3>Customboot-32</h3>
+            <p>
+                Built a custom PCB combining STM32 and ESP32 to support OTA firmware updates, UART-based transfer, and dual-image bootloader functionality.
+            </p>
+            <div class="project-tags">
+                <span class="completed">Completed</span>
+                <span class="tag">C</span>
+                <span class="tag">PCB-design</span>
+                <span class="tag">Embedded systems</span>
+                
+            </div>
+        </div>
+
+        <div class="project-card">
+            <h3>HackerFab-VJTI</h3>
+            <p>
+                Research-focused initiative to develop low-cost semiconductor fabrication techniques for building basic devices at micrometer scale, inspired by the HackerFab movement and academic communities.
+            </p>
+            <div class="project-tags">
+                <span class="ongoing">Ongoing</span>
+                <span class="tag">Microfabrication</span>
+                <span class="tag">Research Project</span>
+                <span class="tag">Semiconductor fabrication</span>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <h3>Hardware-Hackathon-2.0</h3>
+            <p>
+                Compact, modular multi-sensor rover designed for exploration in Martian-like environments, integrating custom PCB design, ESP32-C3 firmware, and 3D-printed components.
+            </p>
+            <div class="project-tags">
+                <span class="completed">Completed</span>
+                <span class="tag">Hackathon</span>
+                <span class="tag">Embedded Systems</span>
+                <span class="tag">PCB-design and Sensors</span>
+            </div>
+        </div>
+
+
+
+    </div>
+  </section>
 
