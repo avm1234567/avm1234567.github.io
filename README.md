@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -257,4 +257,6 @@
 <a href="#projects" class="btn">My Projects</a>
 <a href="#contact" class="btn">Contact Me</a>
 </header>
+
+
 
