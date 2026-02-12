@@ -323,7 +323,17 @@
       .intro { padding: 60px 0 56px; }
       .intro-content { flex-direction: column-reverse; align-items: flex-start; gap: 32px; padding: 0 20px; }
       .intro h1 { font-size: 2.2rem; }
-      .profile-photo-placeholder { width: 100px; height: 100px; }
+      
+      /* Fix mobile photo size */
+      .profile-photo { 
+        width: 140px; 
+        height: 140px; 
+      }
+      .profile-photo-placeholder { 
+        width: 140px; 
+        height: 140px; 
+      }
+      
       .project { grid-template-columns: 1fr; }
       .project-aside { grid-column: 1; grid-row: auto; flex-direction: row; }
       footer { padding: 20px; flex-direction: column; gap: 4px; }
@@ -357,9 +367,7 @@
           <p>Embedded Systems Engineer | PCB Designer | IoT Developer</p>
         </div>
       
-        <div class="profile-photo-placeholder">
-         <img class="profile-photo" src="assets/me.jpeg" alt="Archit More">
-        </div>
+        <img class="profile-photo" src="assets/me.jpeg" alt="Archit More">
       </div>
     </section>
 
