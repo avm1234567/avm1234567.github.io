@@ -1,475 +1,456 @@
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Portfolio - Simple Version</title>
-  
+  <title>Archit More</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
-   /* ============================================
-   BASIC RESET - Makes all browsers behave the same
-   ============================================ */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 
-/* ============================================
-   BODY STYLING - Dark mode with black background
-   ============================================ */
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  line-height: 1.6;
-  background-color: #000000;
-  color: #e5e5e5;
-}
+    :root {
+      --bg: #f9f8f6;
+      --text: #1a1a1a;
+      --muted: #888;
+      --border: #e0ddd8;
+    }
 
-/* ============================================
-   CONTAINER - Centers content and adds spacing
-   ============================================ */
-.container {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 20px;
-}
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
-/* ============================================
-   HEADER SECTION - Top of the page
-   ============================================ */
-header {
-  background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-  color: #ffffff;
-  text-align: center;
-  padding: 100px 20px;
-  border-bottom: 2px solid #38bdf8;
-}
+    body {
+      font-family: 'EB Garamond', Georgia, serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 18px;
+      line-height: 1.7;
+    }
 
-header h1 {
-  font-size: 3rem;
-  margin-bottom: 10px;
-  font-weight: 700;
-  background: linear-gradient(135deg, #38bdf8 0%, #60a5fa 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
+    /* NAV */
+    nav {
+      padding: 28px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+    }
 
-header p {
-  font-size: 1.2rem;
-  margin-bottom: 20px;
-  color: #b4b4b4;
-}
+    .nav-name {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      color: var(--text);
+    }
 
-/* ============================================
-   BUTTONS - Call to action buttons
-   ============================================ */
-.btn {
-  display: inline-block;
-  padding: 12px 30px;
-  background-color: #38bdf8;
-  color: #000000;
-  text-decoration: none;
-  border-radius: 25px;
-  margin: 5px;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  border: 2px solid transparent;
-}
+    .nav-links { list-style: none; display: flex; gap: 28px; }
 
-.btn:hover {
-  background-color: transparent;
-  color: #38bdf8;
-  border: 2px solid #38bdf8;
-  transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(56, 189, 248, 0.3);
-}
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: color 0.15s;
+    }
 
-.viewcodebtn {
-  display: inline-block;
-  padding: 12px 30px;
-  background-color: #38bdf8;
-  color: #000000;
-  text-decoration: none;
-  border-radius: 25px;
-    margin-top: auto;       /* Pushes button down */
-  align-self: flex-end; 
-  margin: 5px;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  border: 2px solid transparent;
-}
+    .nav-links a:hover { color: var(--text); }
 
-.viewcodebtn:hover {
-  background-color: transparent;
-  color: #38bdf8;
-  border: 2px solid #38bdf8;
-  transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(56, 189, 248, 0.3);
-}
+    /* LAYOUT */
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
 
+    /* INTRO */
+    .intro {
+      padding: 100px 0 80px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
 
+    /* Slideshow container */
+    .intro-slideshow {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
 
-/* ============================================
-   SECTIONS - Main content areas
-   ============================================ */
-section {
-  padding: 60px 20px;
-  background-color: #000000;
-  margin: 20px 0;
-}
+    .intro-slide {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      animation: slideshow 15s infinite;
+    }
 
-section:nth-child(even) {
-  background-color: #0a0a0a;
-}
+    /* Add your images here - adjust the number based on how many images you have */
+    .intro-slide:nth-child(1) {
+      background-image: url('assets/sky.jpeg');
+      animation-delay: 0s;
+    }
 
-section h2 {
-  font-size: 2.5rem;
-  text-align: center;
-  margin-bottom: 40px;
-  color: #38bdf8;
-  font-weight: 700;
-}
+    .intro-slide:nth-child(2) {
+      background-image: url('assets/mountain1.jpeg'); /* Replace with your second image */
+      animation-delay: 5s;
+    }
 
-/* ============================================
-   ABOUT SECTION
-   ============================================ */
-.about-text {
-  max-width: 700px;
-  margin: 0 auto;
-  font-size: 1.1rem;
-  text-align: center;
-  color: #d4d4d4;
-  line-height: 1.8;
-}
+    .intro-slide:nth-child(3) {
+      background-image: url('assets/mountain2.jpeg'); /* Replace with your third image */
+      animation-delay: 10s;
+    }
 
-/* ============================================
-   SKILLS SECTION - Grid layout
-   ============================================ */
-.skills-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
-  max-width: 900px;
-  margin: 0 auto;
-}
+    @keyframes slideshow {
+      0% { opacity: 0; }
+      6.67% { opacity: 0.15; }
+      33.33% { opacity: 0.15; }
+      40% { opacity: 0; }
+      100% { opacity: 0; }
+    }
 
-.skill-box {
-  background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
-  padding: 30px;
-  border-radius: 15px;
-  text-align: center;
-  border: 1px solid #2a2a2a;
-  transition: all 0.3s ease;
-}
+    .intro-content {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 48px;
+    }
 
-.skill-box:hover {
-  border-color: #38bdf8;
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(56, 189, 248, 0.2);
-}
+    .intro-text { flex: 1; }
 
-.skill-box h3 {
-  color: #38bdf8;
-  margin-bottom: 15px;
-  font-size: 1.3rem;
-  font-weight: 600;
-}
+    .intro h1 {
+      font-size: 3rem;
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      letter-spacing: -0.01em;
+    }
 
-.skill-box ul {
-  list-style: none;
-}
+    .intro p {
+      font-size: 1.05rem;
+      color: var(--muted);
+      margin-bottom: 32px;
+    }
 
-.skill-box li {
-  padding: 5px 0;
-  color: #b4b4b4;
-}
+    .intro-links { display: flex; gap: 20px; flex-wrap: wrap; }
 
-/* ============================================
-   PROJECTS SECTION - Card layout
-   ============================================ */
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 30px;
-}
+    .intro-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      border-bottom: 1px solid var(--text);
+      padding-bottom: 2px;
+      transition: opacity 0.15s;
+    }
 
-.project-card {
-  background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
-  padding: 30px;
-  border-radius: 15px;
-  border: 1px solid #2a2a2a;
-  transition: all 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  min-height: 320px;
-}
+    .intro-links a:hover { opacity: 0.4; }
 
-.project-card:hover {
-  transform: translateY(-5px);
-  border-color: #38bdf8;
-  box-shadow: 0 15px 35px rgba(56, 189, 248, 0.2);
-}
+    /* PHOTO */
+    .profile-photo {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 1px solid var(--border);
+    }
 
-.project-card h3 {
-  color: #38bdf8;
-  margin-bottom: 10px;
-  font-size: 1.4rem;
-  font-weight: 600;
-}
+    .profile-photo-placeholder {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      border: 1px dashed #ccc;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 6px;
+      background: #f4f3f1;
+    }
 
-.project-card p {
-  color: #b4b4b4;
-  line-height: 1.7;
-}
+    .profile-photo-placeholder span {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      color: #bbb;
+      letter-spacing: 0.06em;
+      text-align: center;
+      line-height: 1.5;
+    }
 
-.project-tags {
-  margin-top: 15px;
-}
+    /* SECTIONS */
+    .section {
+      padding: 72px 0;
+      border-bottom: 1px solid var(--border);
+    }
 
-.tag {
-  display: inline-block;
-  background-color: #2a2a2a;
-  color: #38bdf8;
-  padding: 6px 16px;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  margin: 3px;
-  border: 1px solid #3a3a3a;
-  font-weight: 500;
-}
+    .section-heading {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 36px;
+    }
 
-.completed {
-  display: inline-block;
-  background-color: #0d4d2b;
-  color: #4ade80;
-  padding: 6px 16px;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  margin: 3px;
-  border: 1px solid #166534;
-  font-weight: 500;
-}
+    /* ABOUT */
+    .about-text {
+      font-size: 1.05rem;
+      color: #555;
+      line-height: 1.85;
+    }
 
-.ongoing {
-  display: inline-block;
-  background-color: #4a3c0d;
-  color: #facc15;
-  padding: 6px 16px;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  margin: 3px;
-  border: 1px solid #713f12;
-  font-weight: 500;
-}
+    /* PROJECTS */
+    .project {
+      padding: 28px 0;
+      border-top: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px 24px;
+    }
 
-/* ============================================
-   CONTACT SECTION
-   ============================================ */
-#contact {
-  background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-  color: white;
-  text-align: center;
-  border-top: 2px solid #38bdf8;
-}
+    .project:first-of-type { border-top: none; }
 
-#contact h2 {
-  color: #38bdf8;
-}
+    .project-title {
+      font-size: 1.05rem;
+      font-weight: 500;
+      grid-column: 1;
+    }
 
-.contact-links {
-  margin-top: 30px;
-}
+    .project-desc {
+      font-size: 0.95rem;
+      color: #666;
+      line-height: 1.65;
+      grid-column: 1;
+    }
 
-.contact-links a {
-  color: #38bdf8;
-  text-decoration: none;
-  font-size: 1.2rem;
-  margin: 0 15px;
-  padding: 12px 25px;
-  border: 2px solid #38bdf8;
-  border-radius: 25px;
-  display: inline-block;
-  transition: all 0.3s ease;
-  font-weight: 600;
-}
+    .project-tags {
+      grid-column: 1;
+      margin-top: 8px;
+    }
 
-.contact-links a:hover {
-  background-color: #38bdf8;
-  color: #000000;
-  box-shadow: 0 8px 20px rgba(56, 189, 248, 0.4);
-  transform: translateY(-3px);
+    .tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
 
-}
+    .tag + .tag::before { content: ' · '; }
 
-/* ============================================
-   FOOTER
-   ============================================ */
-footer {
-  background-color: #0a0a0a;
-  color: #b4b4b4;
-  text-align: center;
-  padding: 20px;
-  border-top: 1px solid #2a2a2a;
-}
+    .project-aside {
+      grid-column: 2;
+      grid-row: 1 / 4;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+      padding-top: 3px;
+    }
 
-/* ============================================
-   RESPONSIVE DESIGN - Makes site work on phones
-   ============================================ */
-@media (max-width: 768px) {
-  header h1 {
-    font-size: 2rem;
-  }
+    .status {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
 
-  .skills-grid {
-    grid-template-columns: 1fr;
-  }
+    .status.done { color: #5a9e6f; }
+    .status.wip  { color: #b07d2e; }
 
-  .projects-grid {
-    grid-template-columns: 1fr;
-  }
+    .gh-link {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
 
-  .contact-links a {
-    display: block;
-    margin: 10px auto;
-    max-width: 200px;
-  }
-}
+    .gh-link:hover { color: var(--text); }
+
+    /* CONTACT */
+    .contact-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+
+    .contact-list li { display: flex; align-items: baseline; gap: 20px; }
+
+    .contact-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      width: 72px;
+      flex-shrink: 0;
+    }
+
+    .contact-list a {
+      font-size: 1rem;
+      color: var(--text);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+
+    .contact-list a:hover { border-color: var(--text); }
+
+    /* FOOTER */
+    footer {
+      padding: 28px 48px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    footer p {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+      nav { padding: 20px; }
+      .nav-links { display: none; }
+      .container { padding: 0 20px; }
+      .intro { padding: 60px 0 56px; }
+      .intro-content { flex-direction: column-reverse; align-items: flex-start; gap: 32px; padding: 0 20px; }
+      .intro h1 { font-size: 2.2rem; }
+      .profile-photo-placeholder { width: 100px; height: 100px; }
+      .project { grid-template-columns: 1fr; }
+      .project-aside { grid-column: 1; grid-row: auto; flex-direction: row; }
+      footer { padding: 20px; flex-direction: column; gap: 4px; }
+    }
+
   </style>
 </head>
-
 <body>
 
-<header>
-<h1>HI!, I am Archit More</h1>
-<p>Electrical Engineering Student | Embedded Systems & IoT Enthusiast</p>
-<a href="#projects" class="btn">My Projects</a>
-<a href="#contact" class="btn">Contact Me</a>
-</header>
+  <nav>
+    <a class="nav-name" href="#">Archit More</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="https://sravjti.in/webring/redirect.html?site=avm1234567.github.io" target="_blank">Friends</a></li>
+    </ul>
+  </nav>
 
-  <section id="about">
-    <div class="container">
-      <h2>About Me</h2>
-      <div class="about-text">
-        <p>
-            I’m an Electrical Engineering student at VJTI, Mumbai, 
-            who enjoys building and experimenting with embedded systems and hardware projects. 
-            I work on real-world applications using microcontrollers and PCB design, 
-            and I’m continuously improving my technical and problem-solving skills.
-        </p>
+  <main>
+
+    <section class="intro">
+      <div class="intro-slideshow">
+        <div class="intro-slide"></div>
+        <div class="intro-slide"></div>
+        <div class="intro-slide"></div>
       </div>
-    </div>
-  </section>
-
-  <section id="projects">
-    <div class="container">
-        <h2>My Projects</h2>
-        <div class="projects-grid">
-        <div class="project-card">
-            <h3>Customboot-32</h3>
-            <p>
-                Built a custom PCB combining STM32 and ESP32 to support OTA firmware updates, UART-based transfer, and dual-image bootloader functionality.
-            </p>
-            <div class="project-tags">
-                <span class="completed">Completed</span>
-                <span class="tag">C</span>
-                <span class="tag">PCB-design</span>
-                <span class="tag">Embedded systems</span>
-                
-            </div>
-            <a href="https://github.com/avm1234567/Customboot-32.git" target="_blank" class="viewcodebtn">View Code</a>
+      <div class="intro-content">
+        <div class="intro-text">
+          <h1>Archit More</h1>
+          <p>Embedded Systems Engineer | PCB Designer | IoT Developer</p>
         </div>
-
-        <!-- <div class="project-card">
-            <h3>HackerFab-VJTI</h3>
-            <p>
-                Research-focused initiative to develop low-cost semiconductor fabrication techniques for building basic devices at micrometer scale, inspired by the HackerFab movement and academic communities.
-            </p>
-            <div class="project-tags">
-                <span class="ongoing">Ongoing</span>
-                <span class="tag">Microfabrication</span>
-                <span class="tag">Research Project</span>
-                <span class="tag">Semiconductor fabrication</span>
-            </div>
-        </div> -->
-
-        <div class="project-card">
-            <h3>Hardware-Hackathon-2.0</h3>
-            <p>
-                Compact, modular multi-sensor rover designed for exploration in Martian-like environments, integrating custom PCB design, ESP32-C3 firmware, and 3D-printed components.
-            </p>
-            <div class="project-tags">
-                <span class="completed">Completed</span>
-                <span class="tag">Hackathon</span>
-                <span class="tag">Embedded Systems</span>
-                <span class="tag">PCB-design and Sensors</span>
-            </div>
-            <a href="https://github.com/pushkardube/Hardware-Hackothon-2.0.git" target="_blank" class="viewcodebtn">View Code</a>
+      
+        <div class="profile-photo-placeholder">
+         <img class="profile-photo" src="assets/me.jpeg" alt="Archit More">
         </div>
-        
-        <div class="project-card">
-            <h3>Maze-solver</h3>
-            <p>
-                Designed and built a low-cost line-following robot for SAC 2025 using ESP32 and multiple sensors, optimizing performance under tight budget and material constraints.
-            </p>
-            <div class="project-tags">
-                <span class="completed">Completed</span>
-                <span class="tag">Competition</span>
-                <span class="tag">Embedded Systems</span>
-                <span class="tag">Robotics</span>
-            </div>
-            <a href="https://github.com/zadily/SAC2025.git" target="_blank" class="viewcodebtn">View Code</a>
-        </div>
-
-        <div class="project-card">
-            <h3>ESP32-C-edge</h3>
-            <p>
-                Custom-designed ESP32-S3 development board featuring an integrated USB Type-C edge connector for compact, low-cost, and connector-free prototyping.
-            </p>
-            <div class="project-tags">
-                <span class="completed">Completed</span>
-                <span class="tag">PCB-design</span>
-                <span class="tag">Prototyping</span>
-                <span class="tag">Side-project</span>
-            </div>
-            <a href="https://github.com/avm1234567/ESP32-C-edge.git" target="_blank" class="viewcodebtn">View Code</a>
-        </div>
-
-        <div class="project-card">
-            <h3>TermLink</h3>
-            <p>
-                Lightweight Python-based server enabling Windows terminals and HTTP clients to interact with Android devices over a local network using Termux, similar to Windows Phone Link.
-            </p>
-            <div class="project-tags">
-                <span class="ongoing">Ongoing</span>
-                <span class="tag">Python</span>
-                <span class="tag">Android</span>
-                <span class="tag">Side-project</span>
-            </div>
-        </div>
-
-
-
-
-
-
-    </div>
-
-  </section>
-
-  <section id="contact">
-     <div class="container">
-      <h2>Let's Connect</h2>
-      <p>Interested in working together? Feel free to reach out!</p>
-      <div class="contact-links">
-        <a href="mailto:architmore303@gmail.com">Email</a>
-        <a href="https://github.com/avm1234567" target="_blank">GitHub</a>
-        <a href="https://www.linkedin.com/in/archit-more-a39298375" target="_blank">LinkedIn</a>
-        <a href="https://discord.com/users/1431250948298375171" target="_blank">Discord</a>
-        <a href="https://x.com/Mon_Arch57" target="_blank">Twitter</a>
       </div>
-    </div>
+    </section>
 
-  </section>
+    <section class="section container" id="about">
+      <div class="section-heading">About</div>
+      <p class="about-text">
+        I'm an EE student at VJTI, Mumbai, who enjoys building and experimenting with embedded systems and hardware projects. I work on real-world applications using microcontrollers and PCB design, and I'm continuously improving my technical and problem-solving skills.
+      </p>
+    </section>
 
-  </body>
+    <section class="section container" id="projects">
+      <div class="section-heading">Projects</div>
+
+      <div class="project">
+        <div class="project-title">Customboot-32</div>
+        <div class="project-aside">
+          <span class="status done">Completed</span>
+          <a href="https://github.com/avm1234567/Customboot-32.git" target="_blank" class="gh-link">GitHub ↗</a>
+        </div>
+        <div class="project-desc">Custom PCB combining STM32 and ESP32 with OTA firmware updates, UART-based transfer, and dual-image bootloader functionality.</div>
+        <div class="project-tags">
+          <span class="tag">C</span><span class="tag">PCB Design</span><span class="tag">Embedded Systems</span>
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="project-title">Hardware Hackathon 2.0</div>
+        <div class="project-aside">
+          <span class="status done">Completed</span>
+          <a href="https://github.com/pushkardube/Hardware-Hackothon-2.0.git" target="_blank" class="gh-link">GitHub ↗</a>
+        </div>
+        <div class="project-desc">Compact modular multi-sensor rover for Martian-like environments — custom PCB, ESP32-C3 firmware, 3D-printed chassis.</div>
+        <div class="project-tags">
+          <span class="tag">Hackathon</span><span class="tag">ESP32-C3</span><span class="tag">PCB & Sensors</span>
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="project-title">Maze-Solver</div>
+        <div class="project-aside">
+          <span class="status done">Completed</span>
+          <a href="https://github.com/zadily/SAC2025.git" target="_blank" class="gh-link">GitHub ↗</a>
+        </div>
+        <div class="project-desc">Low-cost line-following robot for SAC 2025 using ESP32 and multiple sensors, optimised under tight budget and material constraints.</div>
+        <div class="project-tags">
+          <span class="tag">Competition</span><span class="tag">Robotics</span><span class="tag">ESP32</span>
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="project-title">ESP32-C-Edge</div>
+        <div class="project-aside">
+          <span class="status done">Completed</span>
+          <a href="https://github.com/avm1234567/ESP32-C-edge.git" target="_blank" class="gh-link">GitHub ↗</a>
+        </div>
+        <div class="project-desc">ESP32-S3 dev board with an integrated USB Type-C edge connector — compact, low-cost, and connector-free prototyping.</div>
+        <div class="project-tags">
+          <span class="tag">PCB Design</span><span class="tag">ESP32-S3</span><span class="tag">Prototyping</span>
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="project-title">TermLink</div>
+        <div class="project-aside">
+          <span class="status wip">In progress</span>
+        </div>
+        <div class="project-desc">Lightweight Python server letting Windows terminals and HTTP clients interact with Android over a local network via Termux.</div>
+        <div class="project-tags">
+          <span class="tag">Python</span><span class="tag">Android</span><span class="tag">Networking</span>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="section container" id="contact">
+      <div class="section-heading">Contact</div>
+      <ul class="contact-list">
+        <li><span class="contact-label">Email</span>    <a href="mailto:architmore303@gmail.com">architmore303@gmail.com</a></li>
+        <li><span class="contact-label">GitHub</span>   <a href="https://github.com/avm1234567" target="_blank">avm1234567</a></li>
+        <li><span class="contact-label">LinkedIn</span> <a href="https://www.linkedin.com/in/archit-more-a39298375" target="_blank">archit-more</a></li>
+        <li><span class="contact-label">Discord</span>  <a href="https://discord.com/users/1431250948298375171" target="_blank">Profile</a></li>
+        <li><span class="contact-label">Twitter</span>  <a href="https://x.com/Mon_Arch57" target="_blank">@Mon_Arch57</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Archit More — VJTI Mumbai</p>
+    <p>© 2025</p>
+  </footer>
+
+</body>
+</html>
